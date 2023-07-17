@@ -1,0 +1,21 @@
+.toys-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.toy-item {
+  width: 15rem;
+  background-color: rgb(146, 169, 189);
+  margin: 20px;
+  text-align: center;
+  border: 2px solid rgba(137, 43, 226, 0);
+  padding: 10px;
+
+  transition: all 0.3s;
+}
+
+.toy-item:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
