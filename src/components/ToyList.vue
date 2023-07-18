@@ -1,12 +1,13 @@
 <template>
   <section class="toys-list">
     <article
-      @click="onSelectedToy(toy._id)"
+      @click.stop="onSelectedToy(toy._id)"
       class="toy-item"
       v-for="toy in toys"
       :key="toy._id"
     >
-      <toyPreview :toy="toy"></toyPreview>
+      <toyPreview :toy="toy" />
+      <button @click.stop="onRemove(toy._id)">X</button>
     </article>
   </section>
 </template>
@@ -22,9 +23,13 @@ export default {
   },
   methods: {
     onSelectedToy(toyId) {
-      console.log(toyId);
+      this.$router.push("/toy/" + toyId);
+    },
+    onRemove(toyId) {
+      this.$emit("remove", toyId);
     },
   },
+
   components: {
     ToyPreview,
   },
