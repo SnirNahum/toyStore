@@ -34,7 +34,14 @@ export const toyStore = {
   },
   actions: {
     loadToys({ commit }, { filterBy }) {
-      if (!filterBy) filterBy = { name: "" };
+      if (!filterBy)
+        filterBy = {
+          name: "",
+          price: 0,
+          inStock: false,
+          labels: [],
+          sortBy: "",
+        };
       return toyService
         .query(filterBy)
         .then((toys) => commit({ type: "setToys", toys }));

@@ -1,7 +1,7 @@
 <template>
   <section>
     <h1>Toys</h1>
-    <ToyFilter @setFilterBy="setFilterBy" />
+    <ToyFilter :toys="toys" @setFilterBy="setFilterBy" />
     <routerLink :to="'/toy/edit/'">Add</routerLink>
     <ToyList :toys="toys" @remove="remove" />
   </section>
@@ -21,12 +21,16 @@ export default {
     return {
       fitlerBy: {
         name: "",
+        price: 0,
+        inStock: false,
+        labels: [],
+        sortBy: "",
+        isDescending: 1,
       },
     };
   },
   created() {
     this.loadToys();
-    // this.$store.dispatch({ type: "loadToys" });
   },
   computed: {
     toys() {
@@ -37,7 +41,7 @@ export default {
     remove(toyId) {
       this.$store
         .dispatch({ type: "removeToy", toyId })
-        .then(() => showSuccessMsg("sadasd"));
+        .then(() => showSuccessMsg(`toy with id ${toyId} removed`));
     },
     setFilterBy(filterBy) {
       this.filterBy = { ...filterBy };
