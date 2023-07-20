@@ -1,17 +1,5 @@
 <template>
   <section class="toy-filter">
-    <input
-      @input="setFilterBy"
-      type="text"
-      v-model="filterBy.name"
-      placeholder="Filter by toy name"
-    />
-    <input
-      @input="setFilterBy"
-      type="number"
-      v-model="filterBy.price"
-      placeholder="Filter by toy price"
-    />
     <label for="inStockfilterBy">In Stock:</label>
     <input
       id="inStockfilterBy"
@@ -19,30 +7,19 @@
       type="checkbox"
       v-model="filterBy.inStock"
     />
-
-    <legend>Filter by labels</legend>
-    <select v-model="filterBy.labels" @change="setFilterBy" multiple>
-      <option
-        v-for="labelOption in labelOptions"
-        :key="labelOption"
-        :value="labelOption"
-      >
-        {{ labelOption }}
-      </option>
-    </select>
-
-    <legend>Sort By</legend>
-    <select v-model="filterBy.sortBy" @change="setFilterBy">
-      <option value="">select</option>
-      <option value="name">Name</option>
-      <option value="price">Price</option>
-      <option value="createdAt">Newest</option>
-    </select>
+    <ToyFilterByName @filterByName="setFilterByName" />
+    <ToyFilterByPrice @filterByPrice="setFilterByPrice" />
+    <ToyFilterByLabel @filterByLabels="setFilterByLabels" />
+    <ToyOrderBy @orderBy="setOrderBy" />
   </section>
 </template>
 
 <script>
 import { utilService } from "../services/util.service.js";
+import ToyFilterByLabel from "./filterBy/ToyFilterByLabel.vue";
+import ToyOrderBy from "./filterBy/ToyOrderBy.vue";
+import ToyFilterByName from "./filterBy/ToyFilterByName.vue";
+import ToyFilterByPrice from "./filterBy/ToyFilterByPrice.vue";
 
 export default {
   data() {
@@ -55,14 +32,6 @@ export default {
         sortBy: "",
         isDescending: 1,
       },
-      labelOptions: [
-        "All",
-        "Doll",
-        "Battery Powered",
-        "Baby",
-        "Action",
-        "Water Powered",
-      ],
     };
   },
 
@@ -71,14 +40,28 @@ export default {
       if (this.filterBy.labels.includes("All")) this.filterBy.labels = [];
       this.$emit("setFilterBy", this.filterBy);
     }, 700),
+    setFilterByLabels(labels) {
+      this.filterBy.labels = labels;
+      this.setFilterBy();
+    },
+    setOrderBy(value) {
+      this.filterBy.sortBy = value;
+      this.setFilterBy();
+    },
+    setFilterByName(value) {
+      this.filterBy.name = value;
+      this.setFilterBy();
+    },
+    setFilterByPrice(value) {
+      this.filterBy.price = value;
+      this.setFilterBy();
+    },
+  },
+  components: {
+    ToyFilterByLabel,
+    ToyOrderBy,
+    ToyFilterByName,
+    ToyFilterByPrice,
   },
 };
 </script>
-
-<style scoped>
-.toy-filter {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-}
-</style>
