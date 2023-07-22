@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import { toyStore } from "./modules/toy-module.js";
-// import userStore from './modules/user-module.js'
+import { userStore } from "./modules/user-module.js";
 
 // Enable strict mode in development
 
@@ -8,6 +8,6 @@ import { toyStore } from "./modules/toy-module.js";
 export const store = createStore({
   modules: {
     toyStore,
-    // userStore,
+    userStore,
   },
 });

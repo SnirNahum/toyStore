@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import ToyIndex from "../views/ToyIndex.vue";
 import ToyDetails from "../views/ToyDetails.vue";
 import ToyAdd from "../views/ToyAdd.vue";
+import UserProfile from "../views/UserProfile.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,10 @@ const router = createRouter({
     {
       path: "/toy/edit/:toyId?",
       component: ToyAdd,
+    },
+    {
+      path: "/userProfile",
+      component: UserProfile,
     },
   ],
 });
